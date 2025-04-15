@@ -1,54 +1,28 @@
-import React from 'react'
-import logo from './logo.svg';
-import './App.css';
-import { useState } from 'react';
-import Todolist from './components/Todolist';
+import React, {useState, useEffect } from 'react'
+const App = () =>{
 
-let data = [
-  {
+const [todos, setTodos] = useState([])
+  
+useEffect(()=>{
+  fetch("https://jsonplaceholder.typicode.com/todos")
+  .then(res => res.json())
+  .then(data => setTodos(data))
+  .catch((e)=> console.log(e))
 
-    id: 1,
-    title: "delectus aut autem",
-    completed: false
-  },
-  {
-
-    id: 2,
-    title: "quis ut nam facilis et officia qui",
-    completed: false
-  },
-  {
-
-    id: 3,
-    title: "fugiat veniam minus",
-    completed: false
-  },
-  {
-
-    id: 4,
-    title: "et porro tempora",
-    completed: true
-  },
-  {
-
-    id: 5,
-    title: "laboriosam mollitia et enim quasi adipisci quia provident illum",
-    completed: false
-  }
-]
-
-
-
-function App() {
-
-const [todos, seTodos] = useState(data)
-
-  return (
-    <div className='App'>
-      <h1>To do list</h1>
-      <Todolist todos={todos} title="this is react" />
+}, [])
+return (
+  <div className="App">
+      <h1>Todo List</h1>
+      <ul>
+        {todos.map(todo => (
+          <li key={todo.id}>
+            { }
+            {todo.title} - {}
+          </li>
+        ))}
+      </ul>
     </div>
-  )
+);
 }
 
 export default App;
